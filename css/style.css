@@ -1,3 +1,12 @@
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1{
+    font-size: 2.5vw;
+    text-align: center;
+}
+
 .mostrarError{
     color: red;
 }

@@ -60,7 +60,7 @@ Vue.component('forms-monster', {
                 </div>
                 <atributos-monster></atributos-monster>
                 <div>
-                    <button @click="validarCampos()" id="btnEnviar">Crear monstruo</button>
+                    <button @click="validarCampos(monstruo)">Crear monstruo</button>
                 </div>
             </fieldset>
         </form>
@@ -87,7 +87,7 @@ Vue.component('forms-monster', {
                                 this.verificar.altura = true;
                             }else {
                                 this.verificar.altura = false;
-                                this.enviarFormulario()
+                                this.enviarFormulario(this.monstruo)
                             };
                         }
                     }
@@ -95,14 +95,15 @@ Vue.component('forms-monster', {
             }
         },
 
-        enviarFormulario(){
-            this.arrayMonstruos.push(this.monstruo);
+        enviarFormulario(monstruo){
+            this.arrayMonstruos.push(monstruo);
+            this.monstruo = {nombre:"", apodo:"", profesion:"", peso:"", altura:""}
             console.log(this.arrayMonstruos);
-            this.monstruo.nombre = "";
-            this.monstruo.apodo = "";
-            this.monstruo.profesion = "";
-            this.monstruo.peso = "";
-            this.monstruo.altura = "";
+            // this.monstruo.nombre = "";
+            // this.monstruo.apodo = "";
+            // this.monstruo.profesion = "";
+            // this.monstruo.peso = "";
+            // this.monstruo.altura = "";
         },
 
         
