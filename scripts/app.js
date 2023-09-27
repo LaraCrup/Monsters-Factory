@@ -49,18 +49,18 @@ Vue.component('forms-monster', {
                         <input type="text" id="altura" v-model="monstruo.altura">
                         <p :class="verificar.altura ? 'mostrarError' : 'ocultarError' ">Ingrese una altura mayor a 0</p>
                     </div>
-                    <div>
+                    <div class="selectForm">
                         <label for="color">Color</label>
                         <select id="color">
                             <option value="verde">Verde</option>
                             <option value="azul">Azul</option>
                             <option value="violeta">Violeta</option>
                         </select>
-                        <p>Ingrese un color</p>
+                        <p :class="verificar.color ? 'mostrarError' : 'ocultarError' ">Ingrese un color</p>
                     </div>
                 </div>
                 <atributos-monster></atributos-monster>
-                <div>
+                <div class="btnCrear">
                     <button @click="validarCampos(monstruo)">Crear monstruo</button>
                 </div>
             </form>
@@ -117,37 +117,40 @@ Vue.component('atributos-monster', {
         return{}
     },
     template: `
-        <section>
-            <div>
+        <section class="sectionAtributos">
+            <div class="h2-span">
                 <h2>Elige los atributos de tu monstruo</h2>
-                <div>
+                <div class="divSpanPuntos">
                     <span>15</span>
                 </div>
             </div>
+            <div class="pDescripcion">
                 <p>Tienes 15 puntos para distribuir entre los atributos de tu monstruo. Recuerda que si no utilizas todos los puntos ¡tu monstruo será menos poderoso!</p>
-            <div>
-            <div>
-                <p>Fuerza</p>
-                <div>
-                    <button>-</button>
-                    <span>0</span>
-                    <button>+</button>
-                </div>
             </div>
-            <div>
-                <p>Agilidad</p>
+            <div class="divAtributos">
                 <div>
-                    <button>-</button>
-                    <span>0</span>
-                    <button>+</button>
+                    <p>Fuerza</p>
+                    <div>
+                        <button>-</button>
+                        <span>0</span>
+                        <button>+</button>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <p>Inteligencia</p>
                 <div>
-                    <button>-</button>
-                    <span>0</span>
-                    <button>+</button>
+                    <p>Agilidad</p>
+                    <div>
+                        <button>-</button>
+                        <span>0</span>
+                        <button>+</button>
+                    </div>
+                </div>
+                <div>
+                    <p>Inteligencia</p>
+                    <div>
+                        <button>-</button>
+                        <span>0</span>
+                        <button>+</button>
+                    </div>
                 </div>
             </div>
         </section>
