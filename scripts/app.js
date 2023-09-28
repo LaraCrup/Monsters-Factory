@@ -17,6 +17,12 @@ Vue.component('forms-monster', {
                 altura:"",
                 color:"",
             },
+            options: [
+                {text: 'Seleccione', value: ''},
+                {text: 'Verde', value: 'verde'},
+                {text: 'Azul', value: 'azul'},
+                {text: 'Violeta', value: 'violeta'}
+            ],
             arrayMonstruos: [],
         }
     },
@@ -41,20 +47,20 @@ Vue.component('forms-monster', {
                     </div>
                     <div>
                         <label for="peso">Peso</label>
-                        <input type="number" id="peso" v-model="monstruo.peso">
+                        <input type="number" id="peso" v-model.number="monstruo.peso">
                         <p :class=" verificar.peso ? 'mostrarError' : 'ocultarError' ">Ingrese un peso mayor a 0</p>
                     </div>
                     <div>
                         <label for="altura">Altura</label>
-                        <input type="text" id="altura" v-model="monstruo.altura">
+                        <input type="number" id="altura" v-model.number="monstruo.altura">
                         <p :class="verificar.altura ? 'mostrarError' : 'ocultarError' ">Ingrese una altura mayor a 0</p>
                     </div>
                     <div class="selectForm">
                         <label for="color">Color</label>
-                        <select id="color">
-                            <option value="verde">Verde</option>
-                            <option value="azul">Azul</option>
-                            <option value="violeta">Violeta</option>
+                        <select id="color" v-model="monstruo.color">
+                            <option v-for="item in options" v-bind:value="item.value">
+                                {{item.text}}
+                            </option>
                         </select>
                         <p :class="verificar.color ? 'mostrarError' : 'ocultarError' ">Ingrese un color</p>
                     </div>
@@ -68,8 +74,9 @@ Vue.component('forms-monster', {
                 <p> {{this.monstruo.nombre | uppercase}} </p>
                 <p> {{this.monstruo.apodo | capitalize}} </p>
                 <p> {{this.monstruo.profesion | capitalize}} </p>
-                <p> {{this.monstruo.peso}}kg</p>
-                <p> {{this.monstruo.altura}}cm</p>
+                <p> {{this.monstruo.peso}}kg </p>
+                <p> {{this.monstruo.altura}}cm </p>
+                <p> {{this.monstruo.color}} </p>
             </div>
         </div>
     `,
@@ -95,7 +102,12 @@ Vue.component('forms-monster', {
                                 this.verificar.altura = true;
                             }else {
                                 this.verificar.altura = false;
-                                this.enviarFormulario(this.monstruo)
+                                if(this.monstruo.color === ""){
+                                    this.verificar.color = true;
+                                }else {
+                                    this.verificar.color = false;
+                                    this.enviarFormulario(this.monstruo);
+                                }
                             };
                         }
                     }
