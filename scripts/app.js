@@ -19,9 +19,11 @@ Vue.component('forms-monster', {
             },
             options: [
                 {text: 'Seleccione', value: ''},
-                {text: 'Verde', value: 'verde'},
-                {text: 'Azul', value: 'azul'},
-                {text: 'Violeta', value: 'violeta'}
+                {text: 'Verde', value: 'verde', url: 'verde.png'},
+                {text: 'Azul', value: 'azul', url: 'azul.png'},
+                {text: 'Violeta', value: 'violeta', url: 'violeta.png'},
+                {text: 'Rosa', value: 'rosa', url: 'rosa.png'},
+                {text: 'Amarillo', value: 'amarillo', url: 'amarillo.png'}
             ],
             cantFuerza: 0,
             cantAgilidad: 0,
@@ -33,7 +35,7 @@ Vue.component('forms-monster', {
     template: `
         <div class="forms-display">
             <form v-on:submit.prevent>
-                <div class="gridForms">
+                <fieldset class="gridForms">
                     <div class="form-fila">
                         <div>
                             <label for="nombre">Nombre</label>
@@ -64,7 +66,7 @@ Vue.component('forms-monster', {
                         </div>
                         <div class="selectForm">
                             <label for="color">Color</label>
-                            <select id="color" v-model="monstruo.color">
+                            <select id="color" v-model="monstruo.color" @change="mostrarMonstruo()">
                                 <option v-for="item in options" v-bind:value="item.value">
                                     {{item.text}}
                                 </option>
@@ -72,8 +74,8 @@ Vue.component('forms-monster', {
                             <p :class="verificar.color ? 'mostrarError' : 'ocultarError' ">Ingrese un color</p>
                         </div>
                     </div>
-                </div>
-                <div class="sectionAtributos">
+                </fieldset>
+                <fieldset class="sectionAtributos">
                     <div class="h2-span">
                         <h2>Elige los atributos de tu monstruo</h2>
                         <div class="divSpanPuntos">
@@ -109,7 +111,7 @@ Vue.component('forms-monster', {
                             </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
                 <div class="btnCrear">
                     <button @click="validarCampos(monstruo)">Crear monstruo</button>
                 </div>
@@ -225,6 +227,7 @@ Vue.component('forms-monster', {
                 }
             }
         },
+
     }
 })
 

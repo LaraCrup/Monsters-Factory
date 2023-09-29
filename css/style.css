@@ -45,6 +45,10 @@ form{
     padding: 1vw;
 }
 
+fieldset{
+    border: none;
+}
+
 .gridForms{
     display: flex;
     flex-direction: column;
