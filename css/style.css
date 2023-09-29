@@ -46,15 +46,24 @@ form{
 }
 
 .gridForms{
-    display: grid;
+    display: flex;
+    flex-direction: column;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    padding-left: 1.5vw;
+    padding: 0.5vw 0.5vw 0 0.5vw;
 }
 
-.gridForms div{
-    width: 50%;
-    height: 7vw;
+.form-fila{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 1.5vw;
+}
+
+.form-fila div{
+    display: flex;
+    flex-direction: column;
 }
 
 label{
@@ -88,14 +97,14 @@ input, select{
 /* Atributos */
 
 .sectionAtributos{
-    padding-left: 1.5vw;
+    padding: 0 0.5vw;
 }
 
 .h2-span{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2vw;
+    margin: 2vw 0;
 }
 
 .divSpanPuntos{
