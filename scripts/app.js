@@ -19,11 +19,11 @@ Vue.component('forms-monster', {
             },
             options: [
                 {text: 'Seleccione', value: ''},
-                {text: 'Verde', value: 'verde', url: 'verde.png'},
-                {text: 'Azul', value: 'azul', url: 'azul.png'},
-                {text: 'Violeta', value: 'violeta', url: 'violeta.png'},
-                {text: 'Rosa', value: 'rosa', url: 'rosa.png'},
-                {text: 'Amarillo', value: 'amarillo', url: 'amarillo.png'}
+                {text: 'Verde', value: 'verde', url: '../img/monstruo_verde.png', alt:'monstruo verde'},
+                {text: 'Azul', value: 'azul', url: '../img/monstruo_azul.png', alt:'monstruo azul'},
+                {text: 'Violeta', value: 'violeta', url: '../img/monstruo_violeta.png', alt:'monstruo violeta'},
+                {text: 'Rosa', value: 'rosa', url: '../img/monstruo_rosa.png', alt:'monstruo rosa'},
+                {text: 'Amarillo', value: 'amarillo', url: '../img/monstruo_amarillo.png', alt:'monstruo amarillo'}
             ],
             cantFuerza: 0,
             cantAgilidad: 0,
@@ -66,7 +66,7 @@ Vue.component('forms-monster', {
                         </div>
                         <div class="selectForm">
                             <label for="color">Color</label>
-                            <select id="color" v-model="monstruo.color" @change="mostrarMonstruo()">
+                            <select id="color" v-model="monstruo.color">
                                 <option v-for="item in options" v-bind:value="item.value">
                                     {{item.text}}
                                 </option>
@@ -119,6 +119,9 @@ Vue.component('forms-monster', {
             <div class="cardPrincipal">
                 <p> {{this.monstruo.nombre | uppercase}} </p>
                 <p> {{this.monstruo.apodo | capitalize}} </p>
+                <div class="divImgMonstruo">
+                    <img v-if="monstruo.color" :src="obtenerUrlImg(monstruo.color)" :alt="obtenerAltImg(monstruo.color)"> 
+                </div>
                 <p> {{this.monstruo.profesion | capitalize}} </p>
                 <p> {{this.monstruo.peso}}kg </p>
                 <p> {{this.monstruo.altura}}cm </p>
@@ -126,6 +129,7 @@ Vue.component('forms-monster', {
                 <p> {{this.cantFuerza}} </p>
                 <p> {{this.cantAgilidad}} </p>
                 <p> {{this.cantInteligencia}} </p>
+
             </div>
         </div>
     `,
@@ -226,6 +230,24 @@ Vue.component('forms-monster', {
                     }
                 }
             }
+        },
+
+        obtenerUrlImg(colorSeleccionado) {
+            for (const option of this.options) {
+                if (option.value === colorSeleccionado) {
+                    return option.url;
+                }
+            }
+            return '';
+        },
+        
+        obtenerAltImg(colorSeleccionado) {
+            for (const option of this.options) {
+                if (option.value === colorSeleccionado) {
+                    return option.alt;
+                }
+            }
+            return ''; 
         },
 
     }
