@@ -88,9 +88,14 @@ input, select{
     flex-direction: column;
 }
 
+.divError{
+    height: 0.5vw;
+}
+
 .mostrarError{
     color: red;
     font-size: 0.8vw;
+    font-weight: bold;
     width: 10vw;
 }
 
@@ -196,19 +201,43 @@ input, select{
     border-radius: 10px;
     width: 30vw;
     height: 32vw;
+    padding: 0.5vw;
+}
+
+.divH3{
+    height: 2.5vw;
+}
+
+.cardPrincipal h3{
+    text-align: center;
+    font-size: 2vw;
 }
 
 .cardPrincipal p{
-    font-size: 2vw;
+    font-size: 1.5vw;
     text-align: center;
 }
 
-.cardPrincipal p:first-of-type{
-    padding-top: 0.5vw;
-    font-weight: bolder;
+.divProfesion, .divPeso, .divAltura{
+    height: 2vw;
+    margin: 0.2vw;
+}
+
+.divImgMonstruo{
+    height: 13vw;
+    display: flex;
+    justify-content: center;
+    margin: 0.5vw;
 }
 
 .divImgMonstruo img{
     width: 10vw;
+}
 
+.divAtributosCard{
+    margin-top: 1vw;
+}
+
+.divAtributosCard p{
+    margin: 0.2vw;
 }

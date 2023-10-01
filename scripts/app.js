@@ -16,6 +16,9 @@ Vue.component('forms-monster', {
                 peso:"",
                 altura:"",
                 color:"",
+                cantFuerza: 0,
+                cantAgilidad: 0,
+                cantInteligencia: 0,
             },
             options: [
                 {text: 'Seleccione', value: ''},
@@ -25,9 +28,6 @@ Vue.component('forms-monster', {
                 {text: 'Rosa', value: 'rosa', url: '../img/monstruo_rosa.png', alt:'monstruo rosa'},
                 {text: 'Amarillo', value: 'amarillo', url: '../img/monstruo_amarillo.png', alt:'monstruo amarillo'}
             ],
-            cantFuerza: 0,
-            cantAgilidad: 0,
-            cantInteligencia: 0,
             puntos: 15,
             arrayMonstruos: [],
         }
@@ -40,29 +40,39 @@ Vue.component('forms-monster', {
                         <div>
                             <label for="nombre">Nombre</label>
                             <input type="text" id="nombre" v-model="monstruo.nombre">
-                            <p :class=" verificar.nombre ? 'mostrarError' : 'ocultarError' ">Ingrese un nombre</p>
+                            <div class="divError">
+                                <p :class=" verificar.nombre ? 'mostrarError' : 'ocultarError' ">Ingrese un nombre</p>
+                            </div>
                         </div>
                         <div>
                             <label for="apodo">Apodo</label>
                             <input type="text" id="apodo" v-model="monstruo.apodo">
-                            <p :class=" verificar.apodo ? 'mostrarError' : 'ocultarError' ">Ingrese un apodo</p>
+                            <div class="divError">
+                                <p :class=" verificar.apodo ? 'mostrarError' : 'ocultarError' ">Ingrese un apodo</p>
+                            </div>
                         </div>
                         <div>
                             <label for="profesion">Profesión</label>
                             <input type="text" id="profesion" v-model="monstruo.profesion">
-                            <p :class="verificar.profesion ? 'mostrarError' : 'ocultarError' ">Ingrese una profesión</p>
+                            <div class="divError">
+                                <p :class="verificar.profesion ? 'mostrarError' : 'ocultarError' ">Ingrese una profesión</p>
+                            </div>
                         </div>
                     </div>
                     <div class="form-fila">
                         <div>
                             <label for="peso">Peso</label>
                             <input type="number" id="peso" v-model.number="monstruo.peso">
-                            <p :class=" verificar.peso ? 'mostrarError' : 'ocultarError' ">Ingrese un peso mayor a 0</p>
+                            <div class="divError">
+                                <p :class=" verificar.peso ? 'mostrarError' : 'ocultarError' ">Ingrese un peso mayor a 0</p>
+                            </div>
                         </div>
                         <div>
                             <label for="altura">Altura</label>
                             <input type="number" id="altura" v-model.number="monstruo.altura">
-                            <p :class="verificar.altura ? 'mostrarError' : 'ocultarError' ">Ingrese una altura mayor a 0</p>
+                            <div class="divError">
+                                <p :class="verificar.altura ? 'mostrarError' : 'ocultarError' ">Ingrese una altura mayor a 0</p>
+                            </div>
                         </div>
                         <div class="selectForm">
                             <label for="color">Color</label>
@@ -71,7 +81,9 @@ Vue.component('forms-monster', {
                                     {{item.text}}
                                 </option>
                             </select>
-                            <p :class="verificar.color ? 'mostrarError' : 'ocultarError' ">Ingrese un color</p>
+                            <div class="divError">
+                                <p :class="verificar.color ? 'mostrarError' : 'ocultarError' ">Ingrese un color</p>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
@@ -90,7 +102,7 @@ Vue.component('forms-monster', {
                             <p>Fuerza</p>
                             <div>
                                 <button class="btnResta" @click="bajarOSubirCant('menos', 'fuerza')">-</button>
-                                <span>{{cantFuerza}}</span>
+                                <span>{{monstruo.cantFuerza}}</span>
                                 <button class="btnSuma" @click="bajarOSubirCant('mas', 'fuerza')">+</button>
                             </div>
                         </div>
@@ -98,7 +110,7 @@ Vue.component('forms-monster', {
                             <p>Agilidad</p>
                             <div>
                                 <button class="btnResta" @click="bajarOSubirCant('menos', 'agilidad')">-</button>
-                                <span>{{cantAgilidad}}</span>
+                                <span>{{monstruo.cantAgilidad}}</span>
                                 <button class="btnSuma" @click="bajarOSubirCant('mas', 'agilidad')">+</button>
                             </div>
                         </div>
@@ -106,7 +118,7 @@ Vue.component('forms-monster', {
                             <p>Inteligencia</p>
                             <div>
                                 <button class="btnResta" @click="bajarOSubirCant('menos', 'inteligencia')">-</button>
-                                <span>{{cantInteligencia}}</span>
+                                <span>{{monstruo.cantInteligencia}}</span>
                                 <button class="btnSuma" @click="bajarOSubirCant('mas', 'inteligencia')">+</button>
                             </div>
                         </div>
@@ -117,19 +129,26 @@ Vue.component('forms-monster', {
                 </div>
             </form>
             <div class="cardPrincipal">
-                <p> {{this.monstruo.nombre | uppercase}} </p>
-                <p> {{this.monstruo.apodo | capitalize}} </p>
+                <div class="divH3">
+                    <h3 v-if="monstruo.nombre !== ''">{{ monstruo.nombre | uppercase }} <span v-if="monstruo.apodo !== ''">"{{ monstruo.apodo | capitalize }}"</span></h3>
+                </div>
                 <div class="divImgMonstruo">
                     <img v-if="monstruo.color" :src="obtenerUrlImg(monstruo.color)" :alt="obtenerAltImg(monstruo.color)"> 
                 </div>
-                <p> {{this.monstruo.profesion | capitalize}} </p>
-                <p> {{this.monstruo.peso}}kg </p>
-                <p> {{this.monstruo.altura}}cm </p>
-                <p> {{this.monstruo.color}} </p>
-                <p> {{this.cantFuerza}} </p>
-                <p> {{this.cantAgilidad}} </p>
-                <p> {{this.cantInteligencia}} </p>
-
+                <div class="divProfesion">
+                    <p v-if="monstruo.profesion !== ''"><strong>Profesión:</strong> {{this.monstruo.profesion | capitalize}} </p>
+                </div>
+                <div class="divPeso">
+                    <p v-if="monstruo.peso > 0"><strong>Peso:</strong> {{this.monstruo.peso}} kg </p>
+                </div>
+                <div class="divAltura">
+                    <p v-if="monstruo.altura > 0"><strong>Altura:</strong> {{this.monstruo.altura}} cm </p>
+                </div>
+                <div class="divAtributosCard">
+                    <p><strong>Fuerza:</strong> {{this.monstruo.cantFuerza}} </p>
+                    <p><strong>Agilidad:</strong> {{this.monstruo.cantAgilidad}} </p>
+                    <p><strong>Inteligencia:</strong> {{this.monstruo.cantInteligencia}} </p>
+                </div>
             </div>
         </div>
     `,
@@ -170,7 +189,8 @@ Vue.component('forms-monster', {
 
         enviarFormulario(monstruo){
             this.arrayMonstruos.push(monstruo);
-            this.monstruo = {nombre:"", apodo:"", profesion:"", peso:"", altura:""};
+            this.monstruo = {nombre:"", apodo:"", profesion:"", peso:"", altura:"", cantFuerza: 0, cantAgilidad: 0, cantInteligencia: 0};
+            this.puntos = 15;
             console.log(this.arrayMonstruos);
         },
 
@@ -179,53 +199,53 @@ Vue.component('forms-monster', {
                 this.puntos = 0;
                 if(modificacion  === 'menos'){
                     if(atributo === 'fuerza'){
-                            this.cantFuerza --;
+                            this.monstruo.cantFuerza --;
                             this.puntos ++;
                     }
                     if(atributo === 'agilidad'){
-                        this.cantAgilidad --;
+                        this.monstruo.cantAgilidad --;
                         this.puntos ++;
                     }
                     if(atributo === 'inteligencia'){
-                        this.cantInteligencia --;
+                        this.monstruo.cantInteligencia --;
                         this.puntos ++;
                     }
                 }
             }else {
                 if(atributo === 'fuerza'){
                     if(modificacion === 'mas'){
-                        this.cantFuerza ++;
+                        this.monstruo.cantFuerza ++;
                         this.puntos --;
                     }else if(modificacion === 'menos'){
-                        if(this.cantFuerza > 0){
-                            this.cantFuerza --;
+                        if(this.monstruo.cantFuerza > 0){
+                            this.monstruo.cantFuerza --;
                             this.puntos ++;
-                        }else if(this.cantFuerza < 0){
-                            this.cantFuerza = 0;
+                        }else if(this.monstruo.cantFuerza < 0){
+                            this.monstruo.cantFuerza = 0;
                         }
                     }
                 }else if(atributo === 'agilidad'){
                     if(modificacion === 'mas'){
-                        this.cantAgilidad ++;
+                        this.monstruo.cantAgilidad ++;
                         this.puntos --;
                     }else if(modificacion === 'menos'){
-                        if(this.cantAgilidad > 0){
-                            this.cantAgilidad --;
+                        if(this.monstruo.cantAgilidad > 0){
+                            this.monstruo.cantAgilidad --;
                             this.puntos ++;
-                        }else if(this.cantAgilidad < 0){
-                            this.cantAgilidad = 0;
+                        }else if(this.monstruo.cantAgilidad < 0){
+                            this.monstruo.cantAgilidad = 0;
                         }
                     }
                 }else if(atributo === 'inteligencia'){
                     if(modificacion === 'mas'){
-                        this.cantInteligencia ++;
+                        this.monstruo.cantInteligencia ++;
                         this.puntos --;
                     }else if(modificacion === 'menos'){
-                        if(this.cantInteligencia > 0){
-                            this.cantInteligencia --;
+                        if(this.monstruo.cantInteligencia > 0){
+                            this.monstruo.cantInteligencia --;
                             this.puntos ++;
-                        }else if(this.cantInteligencia < 0){
-                            this.cantInteligencia = 0;
+                        }else if(this.monstruo.cantInteligencia < 0){
+                            this.monstruo.cantInteligencia = 0;
                         }
                     }
                 }
