@@ -14,7 +14,8 @@
 <body>
     <div class="container" v-cloak>
         <h1>Creá tu monstruo aterrador</h1>
-        <forms-monster></forms-monster>
+        <forms-monster :agregar-monstruo="agregarMonstruo"></forms-monster>
+        <cards-guardadas :array-monstruos="arrayMonstruos"></cards-guardadas>
     </div>
     <script src="scripts/app.js"></script>
 </body>

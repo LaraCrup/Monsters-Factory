@@ -29,7 +29,6 @@ Vue.component('forms-monster', {
                 {text: 'Amarillo', value: 'amarillo', url: '../img/monstruo_amarillo.png', alt:'monstruo amarillo'}
             ],
             puntos: 15,
-            arrayMonstruos: [],
         }
     },
     template: `
@@ -152,6 +151,7 @@ Vue.component('forms-monster', {
             </div>
         </div>
     `,
+    props: ['agregarMonstruo'],
     methods:{
         validarCampos(){
             if(this.monstruo.nombre === ""){
@@ -188,10 +188,9 @@ Vue.component('forms-monster', {
         },
 
         enviarFormulario(monstruo){
-            this.arrayMonstruos.push(monstruo);
+            this.agregarMonstruo(monstruo);
             this.monstruo = {nombre:"", apodo:"", profesion:"", peso:"", altura:"", cantFuerza: 0, cantAgilidad: 0, cantInteligencia: 0};
             this.puntos = 15;
-            console.log(this.arrayMonstruos);
         },
 
         bajarOSubirCant(modificacion, atributo){
@@ -273,14 +272,30 @@ Vue.component('forms-monster', {
     }
 })
 
+Vue.component('cards-guardadas', {
+    data: function () {
+        return {
+
+        }
+    },
+    props: ['arrayMonstruos'],
+    template: `
+        <section class="minicards">
+            <article v-for="monstruo in arrayMonstruos" class="card">
+                <p> {{monstruo.nombre}} </p>
+            </article>
+        </section>
+    `,
+})
+
 var app = new Vue({
     el: '.container',
     data: {
-
+        arrayMonstruos: [],
     },
     methods:{
-        // mostrarMonstruoActual(){
-            
-        // }
+        agregarMonstruo(nuevoMonstruo) {
+            this.arrayMonstruos.push(nuevoMonstruo);
+        }
     }
 })
