@@ -16,6 +16,8 @@ Vue.component('forms-monster', {
                 peso:"",
                 altura:"",
                 color:"",
+                imagen:"",
+                alt:"",
                 cantFuerza: 0,
                 cantAgilidad: 0,
                 cantInteligencia: 0,
@@ -254,6 +256,7 @@ Vue.component('forms-monster', {
         obtenerUrlImg(colorSeleccionado) {
             for (const option of this.options) {
                 if (option.value === colorSeleccionado) {
+                    this.monstruo.imagen = option.url;
                     return option.url;
                 }
             }
@@ -263,6 +266,7 @@ Vue.component('forms-monster', {
         obtenerAltImg(colorSeleccionado) {
             for (const option of this.options) {
                 if (option.value === colorSeleccionado) {
+                    this.monstruo.alt = option.alt;
                     return option.alt;
                 }
             }
@@ -281,11 +285,36 @@ Vue.component('cards-guardadas', {
     props: ['arrayMonstruos'],
     template: `
         <section class="minicards">
-            <article v-for="monstruo in arrayMonstruos" class="card">
-                <p> {{monstruo.nombre}} </p>
+            <article v-for="(monstruo, index) in arrayMonstruos" class="card">
+                <div class="divH4">
+                    <h4>{{ monstruo.nombre | uppercase }} "{{ monstruo.apodo | capitalize }}"</h4> <span class="XCerrar" @click="eliminarCard(index)">X</span>
+                </div>
+                <div class="divImgMonstruoCards">
+                    <img :src="monstruo.imagen" :alt="monstruo.alt"> 
+                </div>
+                <div class="divProfesionCards">
+                    <p><strong>Profesión:</strong> {{monstruo.profesion | capitalize}} </p>
+                </div>
+                <div class="divPesoCards">
+                    <p><strong>Peso:</strong> {{monstruo.peso}} kg </p>
+                </div>
+                <div class="divAlturaCards">
+                    <p><strong>Altura:</strong> {{monstruo.altura}} cm </p>
+                </div>
+                <div class="divAtributosCardChica">
+                    <p><strong>Fuerza:</strong> {{monstruo.cantFuerza}} </p>
+                    <p><strong>Agilidad:</strong> {{monstruo.cantAgilidad}} </p>
+                    <p><strong>Inteligencia:</strong> {{monstruo.cantInteligencia}} </p>
+                </div>
             </article>
         </section>
     `,
+    methods:{
+        eliminarCard(index){
+            this.arrayMonstruos.splice(index, 1);
+            localStorage.setItem('local', JSON.stringify(this.arrayMonstruos));
+        }
+    }
 })
 
 var app = new Vue({
@@ -295,7 +324,17 @@ var app = new Vue({
     },
     methods:{
         agregarMonstruo(nuevoMonstruo) {
+            if (!localStorage.local) {
+                this.arrayMonstruos=[]
+            } else {
+                this.arrayMonstruos=JSON.parse(localStorage.getItem('local'))
+            }
             this.arrayMonstruos.push(nuevoMonstruo);
-        }
+            localStorage.setItem('local', JSON.stringify(this.arrayMonstruos))
+        },
     }
 })
+
+if (localStorage.local) {
+    app.arrayMonstruos = JSON.parse(localStorage.getItem('local'));
+}
